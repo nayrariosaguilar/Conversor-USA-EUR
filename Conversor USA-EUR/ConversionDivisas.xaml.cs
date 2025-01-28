@@ -21,12 +21,9 @@ using System.Text.RegularExpressions;
 
 namespace Conversor_USA_EUR
 {
-    /// <summary>
-    /// Lógica de interacción para ConversionDivisas.xaml
-    /// </summary>
+    
     public partial class ConversionDivisas : Window
     {
-        
         
         public ConversionDivisas()
         {
@@ -45,10 +42,11 @@ namespace Conversor_USA_EUR
 
         private bool ValidarFormato(string input, TextBox textBox)
         {
-            if (!Regex.IsMatch(input, @"^\d*([.,]?\d{0,2})?$"))
+            if (!Regex.IsMatch(input, @"^\d*([,]?\d{0,2})?$"))
             {
                 textBox.Text = input.Remove(input.Length - 1);
                 textBox.CaretIndex = textBox.Text.Length;
+                MessageBox.Show($" Ingrese una coma, porfavor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -61,15 +59,11 @@ namespace Conversor_USA_EUR
                 {
                 if (!ValidarFormato(valorIntroducido, valnum1))
                     return -1;
-                valorIntroducido = valorIntroducido.Replace('.', ',');
                 resultado = resultadoFinal;
                 }
                 else
                 {
                     MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                
-
             }
             return resultado;
 
@@ -83,7 +77,6 @@ namespace Conversor_USA_EUR
                 {
                 if (!ValidarFormato(valorIntroducido, factor_conversion))
                     return -1;
-                valorIntroducido = valorIntroducido.Replace('.', ',');
                 resultado = resultadoFinal;
                 }
             else
@@ -104,7 +97,6 @@ namespace Conversor_USA_EUR
             {
                 if (!ValidarFormato(valorIntroducido, valnum2))
                     return -1;
-                valorIntroducido = valorIntroducido.Replace('.', ',');
                 resultado = resultadoFinal;
             }
             else

@@ -25,7 +25,7 @@ namespace Conversor_USA_EUR
 
         private bool ValidarFormato(string input, TextBox textBox)
         {
-            if (!Regex.IsMatch(input, @"^-?\d*([,]?\d{0,2})?$"))
+            if (!Regex.IsMatch(input, @"^-?\d+([,]?\d{0,2})?$"))
             {
                 textBox.Text = input.Remove(input.Length - 1);
                 textBox.CaretIndex = textBox.Text.Length;
@@ -37,13 +37,12 @@ namespace Conversor_USA_EUR
         public double controlNumeroValNum1()
         {
             double resultado = 0;
-            string valorIntroducido = valnum1.Text;
+            string valorIntroducido = valnum1.Text.Trim();
             if (double.TryParse(valorIntroducido, out double resultadoFinal))
             {
                 if (!ValidarFormato(valorIntroducido, valnum1))
                     return -1;
 
-                valorIntroducido = valorIntroducido.Replace(',', '.');
                 resultado = resultadoFinal;
             }
             else
@@ -59,14 +58,13 @@ namespace Conversor_USA_EUR
 
         public double controlNumeroValNum2()
         {
-            string valorIntroducido = valnum2.Text;
             double resultado = 0;
+            string valorIntroducido = valnum2.Text.Trim();
 
             if (double.TryParse(valorIntroducido, out double resultadoFinal))
             {
                 if (!ValidarFormato(valorIntroducido, valnum2))
                     return -1;
-                valorIntroducido = valorIntroducido.Replace(',', '.');
                 resultado = resultadoFinal;
             }
             else
@@ -114,10 +112,12 @@ namespace Conversor_USA_EUR
 
                 if (valnum1.Text.Length == 0 && valnum2.Text.Length != 0)
                 {
+                   
                     double resultado = controlNumeroValNum2();
 
                     //este valor es el cero absoluto no existe temperatura mas baja posible
-                    if (resultado >= -459.67)
+                    
+                    if (resultado >= -459.67&&resultado !=-1)
                     {
                         double celsius = (resultado - 32) * factorC;
                         valnum1.Text = celsius.ToString("F2");
@@ -136,7 +136,7 @@ namespace Conversor_USA_EUR
                 {
                     double resultado2 = controlNumeroValNum1();
 
-                    if (resultado2 >= -273.15)
+                    if (resultado2 >= -273.15&&resultado2!=-1)
                     {
                         double farenheit = (resultado2 * 1.8) + 32;
                         valnum2.Text = farenheit.ToString("F2");
