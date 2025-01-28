@@ -1,0 +1,30 @@
+﻿<Window x:Class="Conversor_USA_EUR.AcercaDe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Conversor_USA_EUR"
+        mc:Ignorable="d"
+        Title="AcercaDe" Height="450" Width="800"  ResizeMode="NoResize">
+    <Grid  >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="1" Source="https://campus.proven.cat/pluginfile.php/1/theme_moove/logo/1736340739/logo_provenzana.jpg" HorizontalAlignment="Left" Height="81" VerticalAlignment="Top" Width="143" Grid.Row="1" Margin="81,5,0,0"/>
+        <Label Grid.Column="1" Content="INS Provençana" HorizontalAlignment="Left" Margin="327,8,0,0" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" Grid.Row="1"/>
+        <Label Grid.Column="1" Content="DAM2" HorizontalAlignment="Left" Margin="395,55,0,0" Grid.Row="1" VerticalAlignment="Top" Height="31" Width="64" FontSize="20" RenderTransformOrigin="0.972,0.586"/>
+        <Label Grid.Column="1" Content="Nayra Rios" HorizontalAlignment="Left" Margin="240,10,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20"/>
+        <Label Grid.Column="1" Content="23/01/2025" HorizontalAlignment="Left" Margin="236,52,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20"/>
+
+
+    </Grid>
+</Window>
