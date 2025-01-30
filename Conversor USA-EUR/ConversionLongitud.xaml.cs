@@ -43,7 +43,7 @@ namespace Conversor_USA_EUR
             }
             if (!Regex.IsMatch(input, @"^\d*([,]\d{0,2})?$"))
             {
-                MessageBox.Show($"Ingrese una coma, por favor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ingrese una coma y solo 2 decimales, por favor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 

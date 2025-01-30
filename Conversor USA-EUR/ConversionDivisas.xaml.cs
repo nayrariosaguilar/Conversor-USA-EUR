@@ -57,7 +57,8 @@ namespace Conversor_USA_EUR
             }
             if (!Regex.IsMatch(input, @"^\d*([,]\d{0,2})?$"))
             {
-                MessageBox.Show($"Ingrese una coma, por favor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
+                MessageBox.Show($"Ingrese una coma con 2 decimales", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
@@ -72,11 +73,12 @@ namespace Conversor_USA_EUR
                 if (!ValidarFormato(valorIntroducido, valnum1))
                     return -1;
                 resultado = resultadoFinal;
-                }
+            }
                 else
                 {
                     MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                    return -1;
+                }
             return resultado;
 
         }
@@ -94,7 +96,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                return -1;
             }
 
             return resultado;
@@ -114,7 +116,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                return -1;
             }
 
             return resultado;
@@ -147,25 +149,32 @@ namespace Conversor_USA_EUR
                 if (valnum1.Text.Length != 0 && valnum2.Text.Length == 0)
                 {
                     double resultado = controlNumeroValNum1();
-                    if (resultado > 0)
+                    if (resultado >= 0)
                     {
                         double euros = resultado / factorC;
                         valnum2.Text = euros.ToString("F2");
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }else if(resultado == -1)
+                    {
+                        valnum1.Clear();
                     }
                 }
                 else if (valnum2.Text.Length != 0 && valnum1.Text.Length == 0)
                 {
                     double resultado2 = controlNumeroValNum2();
-                    if (resultado2 > 0)
+                    if (resultado2 >= 0)
                     {
                         double dollars = resultado2 * factorC;
                         valnum1.Text = dollars.ToString("F2");
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }
+                    else if (resultado2 == -1)
+                    {
+                        valnum2.Clear();
                     }
                 }
                 else

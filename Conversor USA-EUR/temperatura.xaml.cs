@@ -25,13 +25,18 @@ namespace Conversor_USA_EUR
 
         private bool ValidarFormato(string input, TextBox textBox)
         {
-            if (!Regex.IsMatch(input, @"^-?\d+([,]?\d{0,2})?$"))
+            if ((input.Contains(" ")))
             {
-                textBox.Text = input.Remove(input.Length - 1);
-                textBox.CaretIndex = textBox.Text.Length;
-                MessageBox.Show($"Introduce un decimal con coma", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"No pongas espacio en medio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
                 return false;
             }
+            if (!Regex.IsMatch(input, @"^-?\d*([,]\d{0,2})?$"))
+            {
+                MessageBox.Show($"Ingrese una coma y solo 2 decimales, por favor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
             return true;
         }
         public double controlNumeroValNum1()
@@ -42,14 +47,12 @@ namespace Conversor_USA_EUR
             {
                 if (!ValidarFormato(valorIntroducido, valnum1))
                     return -1;
-
                 resultado = resultadoFinal;
             }
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-
+                return -1;
 
             }
             return resultado;
@@ -70,7 +73,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                return -1;
             }
 
             return resultado;
@@ -117,13 +120,16 @@ namespace Conversor_USA_EUR
 
                     //este valor es el cero absoluto no existe temperatura mas baja posible
                     
-                    if (resultado >= -459.67&&resultado !=-1)
+                    if (resultado >= -459.67)
                     {
                         double celsius = (resultado - 32) * factorC;
                         valnum1.Text = celsius.ToString("F2");
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }else if (resultado == -1)
+                    {
+                        valnum2.Clear();
                     }
                     else
                     {
@@ -143,6 +149,9 @@ namespace Conversor_USA_EUR
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }else if ( resultado2 == -1)
+                    {
+                        valnum1.Clear();
                     }
                     else
                     {
