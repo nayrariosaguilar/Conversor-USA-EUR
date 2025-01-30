@@ -42,12 +42,12 @@ namespace Conversor_USA_EUR
                 temperatura.ShowDialog();
 
             }
-            else if (conversionSelecion.SelectedIndex == 3)
+            else if (conversionSelecion.SelectedIndex == 4)
             {
                 altura altura = new altura();
                 altura.ShowDialog();
             }
-            else if (conversionSelecion.SelectedIndex == 4)
+            else if (conversionSelecion.SelectedIndex == 3)
             {
                 medida medida = new medida();
                 medida.ShowDialog();

@@ -42,13 +42,25 @@ namespace Conversor_USA_EUR
 
         private bool ValidarFormato(string input, TextBox textBox)
         {
-            if (!Regex.IsMatch(input, @"^\d*([,]?\d{0,2})?$"))
+            if ((input.Contains(" ")))
             {
-                textBox.Text = input.Remove(input.Length - 1);
-                textBox.CaretIndex = textBox.Text.Length;
-                MessageBox.Show($" Ingrese una coma, porfavor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"No pongas espacio en medio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
                 return false;
             }
+
+            if (input.StartsWith("-"))
+            {
+                MessageBox.Show($"No se aceptan números negativos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^\d*([,]\d{0,2})?$"))
+            {
+                MessageBox.Show($"Ingrese una coma, por favor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
             return true;
         }
         public double controlNumeroValNum1()

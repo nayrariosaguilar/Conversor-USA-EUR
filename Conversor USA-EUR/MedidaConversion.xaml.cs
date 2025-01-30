@@ -15,26 +15,36 @@ using System.Windows.Shapes;
 
 namespace Conversor_USA_EUR
 {
-    /// <summary>
-    /// Lógica de interacción para medida.xaml
-    /// </summary>
-    public partial class medida : Window
+    public partial class altura : Window
     {
-        public medida()
+        public altura()
         {
             InitializeComponent();
         }
 
-
         private bool ValidarFormato(string input, TextBox textBox)
         {
-            if (!Regex.IsMatch(input, @"^\d*([,]?\d{0,2})?$"))
+            if ((input.Contains(" ")))
+            {
+                MessageBox.Show($"No pongas espacio en medio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
+                return false;
+            }
+
+            if (input.StartsWith("-"))
+            {
+                MessageBox.Show($"No se aceptan números negativos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^\d*([,]\d{0,2})?$"))
             {
                 textBox.Text = input.Remove(input.Length - 1);
                 textBox.CaretIndex = textBox.Text.Length;
-                MessageBox.Show($"Introduce un decimal con coma, NO DEBE SER NEGATIVO", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ingrese una coma, por favor y solo 2 decimales", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+
             return true;
         }
         public double controlNumeroValNum1()
@@ -45,14 +55,12 @@ namespace Conversor_USA_EUR
             {
                 if (!ValidarFormato(valorIntroducido, valnum1))
                     return -1;
-
-                valorIntroducido = valorIntroducido.Replace(',', '.');
                 resultado = resultadoFinal;
             }
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                valnum1.Clear();    
 
 
             }
@@ -69,13 +77,12 @@ namespace Conversor_USA_EUR
             {
                 if (!ValidarFormato(valorIntroducido, valnum2))
                     return -1;
-                valorIntroducido = valorIntroducido.Replace(',', '.');
                 resultado = resultadoFinal;
             }
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    valnum2.Clear();
             }
 
             return resultado;
@@ -91,7 +98,6 @@ namespace Conversor_USA_EUR
             }
 
         }
-
 
         private void reiniciar_Click(object sender, RoutedEventArgs e)
         {
@@ -114,30 +120,37 @@ namespace Conversor_USA_EUR
         {
             try
             {
-                double factorC = 3.28084;
+                //centrimetros, pulgadas
+                double factorC = 0.3937;
 
-                if (valnum1.Text.Length != 0 && valnum2.Text.Length == 0)
+                if (valnum1.Text.Length == 0 && valnum2.Text.Length != 0)
                 {
-                    double resultado = controlNumeroValNum1();
-                    if (resultado > 0)
+                    double resultado = controlNumeroValNum2();
+                    if (resultado >= 0)
                     {
-                        double pies = resultado * factorC;
-                        valnum2.Text = pies.ToString("F2");
+                        double centrimetros = resultado / factorC;
+                        valnum1.Text = centrimetros.ToString("F2");
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }else if(resultado == -1)
+                    {
+                        valnum1.Clear();
                     }
                 }
-                else if (valnum2.Text.Length != 0 && valnum1.Text.Length == 0)
+                else if (valnum2.Text.Length == 0 && valnum1.Text.Length != 0)
                 {
-                    double resultado2 = controlNumeroValNum2();
-                    if (resultado2 > 0)
+                    double resultado2 = controlNumeroValNum1();
+                    if (resultado2 >= 0)
                     {
-                        double metros = resultado2 / factorC;
-                        valnum1.Text = metros.ToString("F2");
+                        double pulgadas = resultado2 * factorC;
+                        valnum2.Text = pulgadas.ToString("F2");
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }else if(resultado2 == -1)
+                    {
+                        valnum2.Clear();
                     }
                 }
                 else
@@ -151,8 +164,7 @@ namespace Conversor_USA_EUR
             }
         }
 
-
-    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -28,13 +28,25 @@ namespace Conversor_USA_EUR
 
         private bool ValidarFormato(string input, TextBox textBox)
         {
-            if (!Regex.IsMatch(input, @"^\d*([,]?\d{0,2})?$"))
+            if ((input.Contains(" ")))
             {
-                textBox.Text = input.Remove(input.Length - 1);
-                textBox.CaretIndex = textBox.Text.Length;
-                MessageBox.Show($"Ingrese una coma, porfavor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"No pongas espacio en medio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
                 return false;
             }
+
+            if (input.StartsWith("-"))
+            {
+                MessageBox.Show($"No se aceptan números negativos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Clear();
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^\d*([,]\d{0,2})?$"))
+            {
+                MessageBox.Show($"Ingrese una coma, por favor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
             return true;
         }
         public double controlNumeroValNum1()
@@ -51,9 +63,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-
-
+                valnum1.Clear();
             }
             return resultado;
 
@@ -67,13 +77,15 @@ namespace Conversor_USA_EUR
             if (double.TryParse(valorIntroducido, out double resultadoFinal))
             {
                 if (!ValidarFormato(valorIntroducido, valnum2))
+                  
                     return -1;
                 resultado = resultadoFinal;
+              
             }
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                valnum2.Clear();
             }
 
             return resultado;
@@ -91,7 +103,6 @@ namespace Conversor_USA_EUR
         }
 
       
-
         private void reiniciar_Click(object sender, RoutedEventArgs e)
         {
             valnum1.Text = "";
@@ -125,6 +136,9 @@ namespace Conversor_USA_EUR
                         calcular.IsEnabled = false;
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
+                    }else if(resultado == -1)
+                    {
+                        valnum1.Clear();
                     }
                 }
                 else if (valnum2.Text.Length != 0 && valnum1.Text.Length == 0)
@@ -138,9 +152,15 @@ namespace Conversor_USA_EUR
                         valnum2.IsEnabled = false;
                         valnum1.IsEnabled = false;
                     }
+                    else if (resultado2 == -1)
+                    {
+                        valnum2.Clear();
+                    }
                 }
                 else
                 {
+                    valnum2.Clear();
+                    valnum1.Clear();
                     MessageBox.Show("Solo se debe introducir un valor a la vez.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
