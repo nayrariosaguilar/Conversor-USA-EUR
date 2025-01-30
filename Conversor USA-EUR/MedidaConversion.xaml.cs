@@ -39,8 +39,6 @@ namespace Conversor_USA_EUR
             }
             if (!Regex.IsMatch(input, @"^\d*([,]\d{0,2})?$"))
             {
-                textBox.Text = input.Remove(input.Length - 1);
-                textBox.CaretIndex = textBox.Text.Length;
                 MessageBox.Show($"Ingrese una coma, por favor y solo 2 decimales", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
@@ -60,7 +58,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                valnum1.Clear();    
+                return -1;
 
 
             }
@@ -82,7 +80,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    valnum2.Clear();
+                return -1;
             }
 
             return resultado;
@@ -135,7 +133,7 @@ namespace Conversor_USA_EUR
                         valnum1.IsEnabled = false;
                     }else if(resultado == -1)
                     {
-                        valnum1.Clear();
+                        valnum2.Clear();
                     }
                 }
                 else if (valnum2.Text.Length == 0 && valnum1.Text.Length != 0)
@@ -150,7 +148,7 @@ namespace Conversor_USA_EUR
                         valnum1.IsEnabled = false;
                     }else if(resultado2 == -1)
                     {
-                        valnum2.Clear();
+                        valnum1.Clear();
                     }
                 }
                 else

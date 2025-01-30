@@ -63,7 +63,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                valnum1.Clear();
+                return -1;
             }
             return resultado;
 
@@ -85,7 +85,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                valnum2.Clear();
+                return -1;
             }
 
             return resultado;

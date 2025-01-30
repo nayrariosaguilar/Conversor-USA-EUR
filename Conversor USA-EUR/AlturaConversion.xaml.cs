@@ -65,7 +65,8 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                valnum1.Clear();
+               
+                return -1;
 
             }
             return resultado;
@@ -86,7 +87,7 @@ namespace Conversor_USA_EUR
             else
             {
                 MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                valnum2.Clear();
+                return -1;
             }
 
             return resultado;
@@ -140,10 +141,6 @@ namespace Conversor_USA_EUR
                     } else if (resultado == -1)
                     {
                         valnum1.Clear();
-                    }else if(resultado == 0)
-                    {
-                        double pies = 0;
-                        valnum2.Text = pies.ToString("F2");
                     }
                 }
                 else if (valnum2.Text.Length != 0 && valnum1.Text.Length == 0)
@@ -161,7 +158,7 @@ namespace Conversor_USA_EUR
                     {
                         valnum2.Clear();
                     }
-                    }
+                }
                 else
                 {
                     MessageBox.Show("Solo se debe introducir un valor a la vez.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
