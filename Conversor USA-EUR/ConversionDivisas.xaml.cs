@@ -73,7 +73,7 @@ namespace Conversor_USA_EUR
                 if (!ValidarFormato(valorIntroducido, valnum1))
                     return -1;
                 resultado = resultadoFinal;
-            }
+                }
                 else
                 {
                     MessageBox.Show($"Factor de conversión no válido. Ingrese un valor numérico", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -143,6 +143,12 @@ namespace Conversor_USA_EUR
                 if (factorC <= 0)
                 {
                     MessageBox.Show("El factor de conversión debe ser mayor que cero.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    factor_conversion.Clear();
+                    return;
+                }
+                if(factorC == -1)
+                {
+                    factor_conversion.Clear();
                     return;
                 }
 
